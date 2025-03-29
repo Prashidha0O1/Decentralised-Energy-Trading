@@ -1,4 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+
+    String contextPath = request.getContextPath();
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -382,17 +387,17 @@ body {
 
     <!-- Navigation -->
     <nav class="navbar">
-        <a href="<%= request.getContextPath() %>/home" class="logo">
+        <a href="<%= contextPath %>/home" class="logo">
             <div class="logo-icon">
                 <div class="wave"></div>
             </div>
             WattX
         </a>
         <ul class="nav-links">
-            <li><a href="<%= request.getContextPath() %>/trade">Trade Energy</a></li>
-            <li><a href="<%= request.getContextPath() %>/how-it-works">How It Works</a></li>
-            <li><a href="<%= request.getContextPath() %>/pricing">Pricing</a></li>
-            <li><a href="<%= request.getContextPath() %>/blog">Blog</a></li>
+            <li><a href="<%= contextPath %>/trade">Trade Energy</a></li>
+            <li><a href="<%= contextPath %>/how-it-works">How It Works</a></li>
+            <li><a href="<%= contextPath %>/pricing">Pricing</a></li>
+            <li><a href="<%= contextPath %>/blog">Blog</a></li>
         </ul>
         <button class="connect-btn">Create Wallet</button>
     </nav>
@@ -421,36 +426,30 @@ body {
 
     <!-- Process Section -->
     <section class="process-section">
-        <div class="process-badge">The Process</div>
-        <h2>Three Simple Steps to<br>Start Trading Energy</h2>
-        <p class="subtitle">Begin your energy trading journey in just 3 easy steps</p>
-        
-        <div class="steps-container">
-            <div class="step">
-                <svg class="step-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" fill="white"/>
-                </svg>
-                <h3>I. Sign Up</h3>
-                <p>Create your free account to start buying, selling, or storing energy.</p>
-            </div>
-            
-            <div class="step">
-                <svg class="step-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M21.41 11.41L12.41 2.41C12.05 2.05 11.55 1.99 11.13 2.2C10.71 2.4 10.44 2.82 10.44 3.29V7.59C6.5 8.09 3 11.86 3 16.29V19.29C3 19.76 3.27 20.19 3.7 20.39C3.84 20.46 3.99 20.49 4.13 20.49C4.44 20.49 4.74 20.37 4.96 20.15C7.72 17.39 9.97 17.39 12 17.59V21.29C12 21.76 12.27 22.19 12.7 22.39C12.84 22.46 12.99 22.49 13.13 22.49C13.4 22.49 13.67 22.39 13.88 22.18L22.88 13.18C23.27 12.8 23.27 12.2 22.88 11.82L21.41 11.41Z" fill="white"/>
-                </svg>
-                <h3>II. Trade</h3>
-                <p>Select whether you're selling surplus solar power or purchasing energy at low prices.</p>
-            </div>
-            
-            <div class="step">
-                <svg class="step-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM12.31 11.14C10.54 10.69 9.97 10.2 9.97 9.47C9.97 8.63 10.76 8.04 12.07 8.04C13.45 8.04 13.97 8.7 14.01 9.68H15.72C15.67 8.34 14.85 7.11 13.23 6.71V5H10.9V6.69C9.39 7.01 8.18 7.99 8.18 9.5C8.18 11.29 9.67 12.19 11.84 12.71C13.79 13.17 14.18 13.86 14.18 14.58C14.18 15.11 13.79 15.97 12.08 15.97C10.48 15.97 9.85 15.25 9.76 14.33H8.04C8.14 16.03 9.4 16.99 10.9 17.3V19H13.24V17.33C14.76 17.04 15.98 16.17 15.98 14.56C15.97 12.36 14.07 11.6 12.31 11.14Z" fill="white"/>
-                </svg>
-                <h3>III. Store & Use</h3>
-                <p>Securely store energy for future projects or manage your energy portfolio with ease.</p>
-            </div>
-        </div>
-    </section>
+	    <div class="process-badge">The Process</div>
+	    <h2>Three Simple Steps to<br>Start Trading Energy</h2>
+	    <p class="subtitle">Begin your energy trading journey in just 3 easy steps</p>
+	    
+	    <div class="steps-container">
+	        <div class="step">
+	            <img src="${pageContext.request.contextPath}/resources/images/signup.png" alt="Sign Up Icon" class="step-icon">
+	            <h3>I. Sign Up</h3>
+	            <p>Create your free account to start buying, selling, or storing energy.</p>
+	        </div>
+	        
+	        <div class="step">
+	            <img src="<%= contextPath %>/resources/images/trade.png" alt="Trade Icon" class="step-icon">
+	            <h3>II. Trade</h3>
+	            <p>Select whether you're selling surplus solar power or purchasing energy at low prices.</p>
+	        </div>
+	        
+	        <div class="step">
+	            <img src="<%= contextPath %>/resources/images/store.png" alt="Store Icon" class="step-icon">
+	            <h3>III. Store & Use</h3>
+	            <p>Securely store energy for future projects or manage your energy portfolio with ease.</p>
+	        </div>
+	    </div>
+	</section>
 
     <!-- Features Section -->
     <section class="features-section">
