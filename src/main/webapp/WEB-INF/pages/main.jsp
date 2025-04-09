@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-
     String contextPath = request.getContextPath();
 %>
 
@@ -387,10 +386,7 @@ body {
 
     <!-- Navigation -->
     <nav class="navbar">
-        <a href="<%= contextPath %>/home" class="logo">
-            <div class="logo-icon">
-                <div class="wave"></div>
-            </div>
+        <a href="<%= contextPath %>/" class="logo">
             WattX
         </a>
         <ul class="nav-links">
@@ -399,7 +395,7 @@ body {
             <li><a href="<%= contextPath %>/pricing">Pricing</a></li>
             <li><a href="<%= contextPath %>/blog">Blog</a></li>
         </ul>
-        <button class="connect-btn">Create Wallet</button>
+        <button class="connect-btn" href="<%= contextPath %>/home">Create Wallet</button>
     </nav>
 
     <!-- Hero Section -->
@@ -438,7 +434,7 @@ body {
 	        </div>
 	        
 	        <div class="step">
-	            <img src="<%= contextPath %>/resources/images/trade.png" alt="Trade Icon" class="step-icon">
+	            <img src="<%= contextPath %>/resources/images/seamless.png" alt="Trade Icon" class="step-icon">
 	            <h3>II. Trade</h3>
 	            <p>Select whether you're selling surplus solar power or purchasing energy at low prices.</p>
 	        </div>
