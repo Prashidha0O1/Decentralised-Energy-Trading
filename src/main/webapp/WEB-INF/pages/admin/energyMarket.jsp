@@ -51,7 +51,7 @@
     </style>
 </head>
 <body>
-    <jsp:include page="sidebar.jsp" /> <!-- Including the sidebar -->
+     <!-- Including the sidebar -->
 
     <div class="container">
         <h1>Energy Market</h1>
