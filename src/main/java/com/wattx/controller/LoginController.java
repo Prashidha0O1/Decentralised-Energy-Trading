@@ -24,7 +24,7 @@ public class LoginController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // Forward to LOGIN.jsp
-        request.getRequestDispatcher("WEB-INF/pages/LOGIN.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/pages/Login.jsp").forward(request, response);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class LoginController extends HttpServlet {
         // Validate input
         if (email == null || password == null || email.isEmpty() || password.isEmpty()) {
             request.setAttribute("error", "Email and password are required.");
-            request.getRequestDispatcher("WEB-INF/pages/LOGIN.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/pages/Login.jsp").forward(request, response);
             return;
         }
 
