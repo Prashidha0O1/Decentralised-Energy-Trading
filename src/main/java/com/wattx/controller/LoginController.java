@@ -59,7 +59,7 @@ public class LoginController extends HttpServlet {
             }
         } catch (SQLException e) {
             request.setAttribute("error", "Database error: " + e.getMessage());
-            request.getRequestDispatcher("WEB-INF/pages/LOGIN.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/pages/Login.jsp").forward(request, response);
             return;
         }
 
