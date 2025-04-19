@@ -341,7 +341,7 @@
                 <div class="menu-section">
                     <div class="menu-section-title">Main</div>
                     <div class="menu-items">
-                        <a href="<%= contextPath %>/dashboard" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                        <a href="<%= contextPath %>/market" class="active"><i class="fas fa-tachometer-alt"></i> Energy Market</a>
                         <a href="#"><i class="fas fa-shopping-cart"></i> Purchases</a>
                     </div>
                 </div>
@@ -356,7 +356,7 @@
         </div>
         <div class="content">
             <div class="topbar">
-                <div class="topbar-title">Dashboard</div>
+                <div class="topbar-title">Energy Market</div>
                 <div class="user-menu">
                     <div class="notification-icon"><i class="fas fa-bell"></i></div>
                     <div class="user-profile"><i class="fas fa-user"></i></div>
