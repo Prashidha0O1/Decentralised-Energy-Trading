@@ -342,14 +342,13 @@
                     <div class="menu-section-title">Main</div>
                     <div class="menu-items">
                         <a href="<%= contextPath %>/market" class="active"><i class="fas fa-tachometer-alt"></i> Energy Market</a>
-                        <a href="#"><i class="fas fa-shopping-cart"></i> Purchases</a>
                     </div>
                 </div>
                 <div class="menu-section">
                     <div class="menu-section-title">Settings</div>
                     <div class="menu-items">
                         <a href="#"><i class="fas fa-user"></i> Profile</a>
-                        <a href="<%= contextPath %>/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        <a href="<%= contextPath %>/"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </div>
                 </div>
             </div>

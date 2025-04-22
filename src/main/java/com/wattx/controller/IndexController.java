@@ -12,9 +12,8 @@ import java.io.IOException;
  */
 @WebServlet(
 		asyncSupported = true, 
-		name = "LandingPageController", 
-		urlPatterns = {  
-				"/main", 
+		name = "IndexController", 
+		urlPatterns = {   
 				"/"
 		})
 public class IndexController extends HttpServlet {

@@ -10,7 +10,6 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -20,13 +19,15 @@ import java.util.List;
  */
 @WebFilter(urlPatterns = { "/*" })
 public class AuthFilter implements Filter {
-
     // List of paths that don't require authentication
     private static final List<String> PUBLIC_PATHS = Arrays.asList(
+        "/",             // Added root path
+        "/index.jsp",    // Added in case you have an index.jsp
         "/market",
         "/login",
         "/signup",
-        "/logout" // Add any other public paths as needed
+        "/register",     // Added register path
+        "/logout"        // Add any other public paths as needed
     );
 
     /**
@@ -45,33 +46,45 @@ public class AuthFilter implements Filter {
             throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-
+        
         // Get the request URI and context path
         String requestURI = httpRequest.getRequestURI();
         String contextPath = httpRequest.getContextPath();
         String path = requestURI.substring(contextPath.length());
-
-        // Allow public paths to bypass authentication
-        if (PUBLIC_PATHS.contains(path) || path.startsWith("/public/")) {
+        
+        // Handle empty path (converts "" to "/")
+        if (path.isEmpty()) {
+            path = "/";
+        }
+        
+        // Check for static resources that should be accessible without authentication
+        if (path.startsWith("/css/") || path.startsWith("/js/") || path.startsWith("/images/") || 
+            path.startsWith("/public/") || path.endsWith(".ico")) {
             chain.doFilter(request, response);
             return;
         }
-
+        
+        // Allow public paths to bypass authentication
+        if (PUBLIC_PATHS.contains(path)) {
+            chain.doFilter(request, response);
+            return;
+        }
+        
         // Check if the user is logged in
         HttpSession session = httpRequest.getSession(false);
         boolean isLoggedIn = (session != null && session.getAttribute("user") != null);
-
+        
         if (!isLoggedIn) {
             // Store the intended destination so the login page can redirect back after successful login
             String queryString = httpRequest.getQueryString();
             String redirectURL = path + (queryString != null ? "?" + queryString : "");
             httpRequest.getSession().setAttribute("redirectURL", redirectURL);
-
+            
             // Redirect to login page
             httpResponse.sendRedirect(contextPath + "/login");
             return;
         }
-
+        
         // User is authenticated, proceed with the request
         chain.doFilter(request, response);
     }

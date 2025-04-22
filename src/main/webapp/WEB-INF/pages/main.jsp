@@ -9,749 +9,746 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WattX | Decentralized Energy Trading Platform</title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --binance-yellow: #F0B90B;
-            --binance-black: #1E2026;
-            --binance-dark: #0B0E11;
-            --binance-gray: #474D57;
-            --binance-light-gray: #B7BDC6;
-            --binance-green: #03A66D;
-            --binance-red: #CF304A;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'IBM Plex Sans', sans-serif;
-            color: #fff;
-            background-color: var(--binance-black);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Header & Navigation */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            background-color: var(--binance-dark);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--binance-yellow);
-            display: flex;
-            align-items: center;
-        }
-
-        .logo span {
-            color: #fff;
-        }
-
-        .logo-icon {
-            width: 30px;
-            height: 30px;
-            margin-right: 10px;
-            background: var(--binance-yellow);
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--binance-black);
-            font-weight: bold;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-
-        .nav-links li {
-            margin-left: 30px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #fff;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--binance-yellow);
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 10px 24px;
-            background: var(--binance-yellow);
-            color: var(--binance-black);
-            border-radius: 4px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background: #ffcb3d;
-            transform: translateY(-2px);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--binance-yellow);
-            color: var(--binance-yellow);
-        }
-
-        .btn-outline:hover {
-            background: var(--binance-yellow);
-            color: var(--binance-black);
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 160px 0 100px;
-            background: var(--binance-dark);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 50%;
-            height: 100%;
-            background: url('/placeholder.svg?height=600&width=800') center/cover;
-            opacity: 0.1;
-            z-index: 1;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 650px;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-
-        .hero h1 span {
-            color: var(--binance-yellow);
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            color: var(--binance-light-gray);
-        }
-
-        .hero-btns {
-            display: flex;
-            gap: 15px;
-        }
-
-        .market-ticker {
-            margin-top: 60px;
-            background: rgba(30, 32, 38, 0.7);
-            border: 1px solid #2c2f36;
-            border-radius: 8px;
-            padding: 15px;
-            overflow-x: auto;
-        }
-
-        .ticker-items {
-            display: flex;
-            gap: 30px;
-            min-width: 800px;
-        }
-
-        .ticker-item {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .ticker-pair {
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .ticker-price {
-            font-size: 1.2rem;
-            font-weight: 700;
-        }
-
-        .ticker-change {
-            font-size: 0.9rem;
-        }
-
-        .up {
-            color: var(--binance-green);
-        }
-
-        .down {
-            color: var(--binance-red);
-        }
-
-        /* Features Section */
-        .features {
-            padding: 100px 0;
-            background-color: var(--binance-black);
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-header h2 span {
-            color: var(--binance-yellow);
-        }
-
-        .section-header p {
-            font-size: 1.1rem;
-            color: var(--binance-light-gray);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .feature-card {
-            background-color: var(--binance-dark);
-            border-radius: 8px;
-            padding: 30px;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid #2c2f36;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-            border-color: var(--binance-yellow);
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: rgba(240, 185, 11, 0.1);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            color: var(--binance-yellow);
-            font-size: 24px;
-        }
-
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .feature-card p {
-            color: var(--binance-light-gray);
-        }
-
-        /* Trading View Section */
-        .trading-view {
-            padding: 100px 0;
-            background-color: var(--binance-dark);
-            position: relative;
-        }
-
-        .trading-interface {
-            background-color: var(--binance-black);
-            border-radius: 8px;
-            border: 1px solid #2c2f36;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .trading-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            border-bottom: 1px solid #2c2f36;
-        }
-
-        .trading-pair {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 600;
-        }
-
-        .trading-pair-icon {
-            width: 24px;
-            height: 24px;
-            background: var(--binance-yellow);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            color: var(--binance-black);
-        }
-
-        .trading-price {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--binance-green);
-        }
-
-        .trading-tabs {
-            display: flex;
-            gap: 20px;
-        }
-
-        .trading-tab {
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-        }
-
-        .trading-tab.active {
-            background-color: rgba(240, 185, 11, 0.1);
-            color: var(--binance-yellow);
-        }
-
-        .chart-container {
-            height: 400px;
-            background: url('/placeholder.svg?height=400&width=1000') center/cover;
-            position: relative;
-        }
-
-        .chart-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(11, 14, 17, 0.7);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-
-        .chart-overlay h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-        }
-
-        .trading-actions {
-            display: flex;
-            padding: 20px;
-            border-top: 1px solid #2c2f36;
-            gap: 15px;
-        }
-
-        .action-btn {
-            flex: 1;
-            padding: 12px;
-            border-radius: 4px;
-            font-weight: 600;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        .buy-btn {
-            background-color: var(--binance-green);
-            color: white;
-        }
-
-        .sell-btn {
-            background-color: var(--binance-red);
-            color: white;
-        }
-
-        /* How It Works */
-        .how-it-works {
-            padding: 100px 0;
-            background-color: var(--binance-black);
-            position: relative;
-        }
-
-        .steps {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            margin-top: 50px;
-            position: relative;
-        }
-
-        .steps::before {
-            content: '';
-            position: absolute;
-            top: 40px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: #2c2f36;
-            z-index: 1;
-        }
-
-        .step {
-            flex: 1;
-            min-width: 250px;
-            text-align: center;
-            padding: 0 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .step-number {
-            width: 80px;
-            height: 80px;
-            background: var(--binance-dark);
-            border: 2px solid var(--binance-yellow);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--binance-yellow);
-        }
-
-        .step h3 {
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .step p {
-            color: var(--binance-light-gray);
-        }
-
-        /* Stats Section */
-        .stats {
-            padding: 100px 0;
-            background-color: var(--binance-dark);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .stat-card {
-            background-color: var(--binance-black);
-            border-radius: 8px;
-            padding: 30px;
-            text-align: center;
-            border: 1px solid #2c2f36;
-        }
-
-        .stat-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--binance-yellow);
-        }
-
-        .stat-label {
-            color: var(--binance-light-gray);
-            font-size: 1.1rem;
-        }
-
-        /* CTA Section */
-        .cta {
-            padding: 100px 0;
-            background: linear-gradient(to right, var(--binance-dark), var(--binance-black));
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta::before {
-            content: '';
-            position: absolute;
-            top: -100px;
-            right: -100px;
-            width: 300px;
-            height: 300px;
-            background: var(--binance-yellow);
-            border-radius: 50%;
-            opacity: 0.05;
-        }
-
-        .cta h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .cta h2 span {
-            color: var(--binance-yellow);
-        }
-
-        .cta p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            color: var(--binance-light-gray);
-        }
-
-        /* Footer */
-        footer {
-            padding: 80px 0 30px;
-            background-color: var(--binance-dark);
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            margin-bottom: 60px;
-        }
-
-        .footer-col h3 {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            font-weight: 600;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-col h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 40px;
-            height: 3px;
-            background: var(--binance-yellow);
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-
-        .footer-links a {
-            text-decoration: none;
-            color: var(--binance-light-gray);
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--binance-yellow);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-link {
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color 0.3s;
-            color: var(--binance-light-gray);
-            text-decoration: none;
-        }
-
-        .social-link:hover {
-            background-color: var(--binance-yellow);
-            color: var(--binance-black);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid #2c2f36;
-            color: var(--binance-light-gray);
-            font-size: 0.9rem;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate {
-            animation: fadeInUp 0.6s ease-out forwards;
-        }
-
-        .delay-1 {
-            animation-delay: 0.2s;
-        }
-
-        .delay-2 {
-            animation-delay: 0.4s;
-        }
-
-        .delay-3 {
-            animation-delay: 0.6s;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .hero-btns {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .steps::before {
-                display: none;
-            }
-
-            .step {
-                margin-bottom: 40px;
-            }
-
-            .trading-actions {
-                flex-direction: column;
-            }
-        }
-
-        /* Binance-style candlestick chart */
-        .candlestick-chart {
-            height: 400px;
-            width: 100%;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .chart-grid {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: grid;
-            grid-template-rows: repeat(10, 1fr);
-            grid-template-columns: repeat(20, 1fr);
-        }
-
-        .grid-line-horizontal {
-            border-bottom: 1px solid rgba(44, 47, 54, 0.5);
-            grid-column: 1 / -1;
-        }
-
-        .grid-line-vertical {
-            border-right: 1px solid rgba(44, 47, 54, 0.5);
-            grid-row: 1 / -1;
-        }
-
-        .candle {
-            position: absolute;
-            width: 8px;
-            background-color: var(--binance-green);
-            bottom: 0;
-            transform: translateX(-50%);
-        }
-
-        .candle.down {
-            background-color: var(--binance-red);
-        }
-
-        .candle-wick {
-            position: absolute;
-            width: 2px;
-            background-color: #fff;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        /* Mobile menu */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu-btn {
-                display: block;
-            }
-        }
+    <style> 
+
+:root {
+	--binance-yellow: #F0B90B;
+	--binance-black: #1E2026;
+	--binance-dark: #0B0E11;
+	--binance-gray: #474D57;
+	--binance-light-gray: #B7BDC6;
+	--binance-green: #03A66D;
+	--binance-red: #CF304A;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'IBM Plex Sans', sans-serif;
+	color: #fff;
+	background-color: var(--binance-black);
+	line-height: 1.6;
+	overflow-x: hidden;
+}
+
+.container {
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 20px;
+}
+
+/* Header & Navigation */
+header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 1000;
+	background-color: var(--binance-dark);
+	box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+nav {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 15px 0;
+}
+
+.logo {
+	font-size: 24px;
+	font-weight: 700;
+	color: var(--binance-yellow);
+	display: flex;
+	align-items: center;
+}
+
+.logo span {
+	color: #fff;
+}
+
+.logo-icon {
+	width: 30px;
+	height: 30px;
+	margin-right: 10px;
+	background: var(--binance-yellow);
+	border-radius: 50%;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--binance-black);
+	font-weight: bold;
+}
+
+.nav-links {
+	display: flex;
+	list-style: none;
+}
+
+.nav-links li {
+	margin-left: 30px;
+}
+
+.nav-links a {
+	text-decoration: none;
+	color: #fff;
+	font-weight: 500;
+	transition: color 0.3s;
+}
+
+.nav-links a:hover {
+	color: var(--binance-yellow);
+}
+
+.btn {
+	display: inline-block;
+	padding: 10px 24px;
+	background: var(--binance-yellow);
+	color: var(--binance-black);
+	border-radius: 4px;
+	font-weight: 600;
+	text-decoration: none;
+	transition: all 0.3s;
+	border: none;
+	cursor: pointer;
+}
+
+.btn:hover {
+	background: #ffcb3d;
+	transform: translateY(-2px);
+}
+
+.btn-outline {
+	background: transparent;
+	border: 1px solid var(--binance-yellow);
+	color: var(--binance-yellow);
+}
+
+.btn-outline:hover {
+	background: var(--binance-yellow);
+	color: var(--binance-black);
+}
+
+/* Hero Section */
+.hero {
+	padding: 160px 0 100px;
+	background: var(--binance-dark);
+	position: relative;
+	overflow: hidden;
+}
+
+.hero::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 50%;
+	height: 100%;
+	background: url('/placeholder.svg?height=600&width=800') center/cover;
+	opacity: 0.1;
+	z-index: 1;
+}
+
+.hero-content {
+	position: relative;
+	z-index: 2;
+	max-width: 650px;
+}
+
+.hero h1 {
+	font-size: 3.5rem;
+	font-weight: 700;
+	margin-bottom: 20px;
+	line-height: 1.2;
+}
+
+.hero h1 span {
+	color: var(--binance-yellow);
+}
+
+.hero p {
+	font-size: 1.2rem;
+	margin-bottom: 30px;
+	color: var(--binance-light-gray);
+}
+
+.hero-btns {
+	display: flex;
+	gap: 15px;
+}
+
+.market-ticker {
+	margin-top: 60px;
+	background: rgba(30, 32, 38, 0.7);
+	border: 1px solid #2c2f36;
+	border-radius: 8px;
+	padding: 15px;
+	overflow-x: auto;
+}
+
+.ticker-items {
+	display: flex;
+	gap: 30px;
+	min-width: 800px;
+}
+
+.ticker-item {
+	display: flex;
+	flex-direction: column;
+}
+
+.ticker-pair {
+	font-weight: 600;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+.ticker-price {
+	font-size: 1.2rem;
+	font-weight: 700;
+}
+
+.ticker-change {
+	font-size: 0.9rem;
+}
+
+.up {
+	color: var(--binance-green);
+}
+
+.down {
+	color: var(--binance-red);
+}
+
+/* Features Section */
+.features {
+	padding: 100px 0;
+	background-color: var(--binance-black);
+}
+
+.section-header {
+	text-align: center;
+	margin-bottom: 60px;
+}
+
+.section-header h2 {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-bottom: 15px;
+	position: relative;
+	display: inline-block;
+}
+
+.section-header h2 span {
+	color: var(--binance-yellow);
+}
+
+.section-header p {
+	font-size: 1.1rem;
+	color: var(--binance-light-gray);
+	max-width: 700px;
+	margin: 0 auto;
+}
+
+.features-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: 30px;
+	margin-top: 50px;
+}
+
+.feature-card {
+	background-color: var(--binance-dark);
+	border-radius: 8px;
+	padding: 30px;
+	transition: transform 0.3s, box-shadow 0.3s;
+	border: 1px solid #2c2f36;
+}
+
+.feature-card:hover {
+	transform: translateY(-10px);
+	box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+	border-color: var(--binance-yellow);
+}
+
+.feature-icon {
+	width: 60px;
+	height: 60px;
+	background: rgba(240, 185, 11, 0.1);
+	border-radius: 8px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 20px;
+	color: var(--binance-yellow);
+	font-size: 24px;
+}
+
+.feature-card h3 {
+	font-size: 1.5rem;
+	margin-bottom: 15px;
+	font-weight: 600;
+}
+
+.feature-card p {
+	color: var(--binance-light-gray);
+}
+
+/* Trading View Section */
+.trading-view {
+	padding: 100px 0;
+	background-color: var(--binance-dark);
+	position: relative;
+}
+
+.trading-interface {
+	background-color: var(--binance-black);
+	border-radius: 8px;
+	border: 1px solid #2c2f36;
+	overflow: hidden;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.trading-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 15px 20px;
+	border-bottom: 1px solid #2c2f36;
+}
+
+.trading-pair {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-weight: 600;
+}
+
+.trading-pair-icon {
+	width: 24px;
+	height: 24px;
+	background: var(--binance-yellow);
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 12px;
+	color: var(--binance-black);
+}
+
+.trading-price {
+	font-size: 1.2rem;
+	font-weight: 700;
+	color: var(--binance-green);
+}
+
+.trading-tabs {
+	display: flex;
+	gap: 20px;
+}
+
+.trading-tab {
+	padding: 5px 10px;
+	cursor: pointer;
+	border-radius: 4px;
+	transition: background-color 0.3s;
+}
+
+.trading-tab.active {
+	background-color: rgba(240, 185, 11, 0.1);
+	color: var(--binance-yellow);
+}
+
+.chart-container {
+	height: 400px;
+	background: url('/placeholder.svg?height=400&width=1000') center/cover;
+	position: relative;
+}
+
+.chart-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(11, 14, 17, 0.7);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.chart-overlay h3 {
+	font-size: 1.8rem;
+	margin-bottom: 20px;
+}
+
+.trading-actions {
+	display: flex;
+	padding: 20px;
+	border-top: 1px solid #2c2f36;
+	gap: 15px;
+}
+
+.action-btn {
+	flex: 1;
+	padding: 12px;
+	border-radius: 4px;
+	font-weight: 600;
+	text-align: center;
+	cursor: pointer;
+}
+
+.buy-btn {
+	background-color: var(--binance-green);
+	color: white;
+}
+
+.sell-btn {
+	background-color: var(--binance-red);
+	color: white;
+}
+
+/* How It Works */
+.how-it-works {
+	padding: 100px 0;
+	background-color: var(--binance-black);
+	position: relative;
+}
+
+.steps {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin-top: 50px;
+	position: relative;
+}
+
+.steps::before {
+	content: '';
+	position: absolute;
+	top: 40px;
+	left: 0;
+	width: 100%;
+	height: 2px;
+	background: #2c2f36;
+	z-index: 1;
+}
+
+.step {
+	flex: 1;
+	min-width: 250px;
+	text-align: center;
+	padding: 0 20px;
+	position: relative;
+	z-index: 2;
+}
+
+.step-number {
+	width: 80px;
+	height: 80px;
+	background: var(--binance-dark);
+	border: 2px solid var(--binance-yellow);
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 auto 20px;
+	font-size: 1.8rem;
+	font-weight: 700;
+	color: var(--binance-yellow);
+}
+
+.step h3 {
+	font-size: 1.3rem;
+	margin-bottom: 15px;
+	font-weight: 600;
+}
+
+.step p {
+	color: var(--binance-light-gray);
+}
+
+/* Stats Section */
+.stats {
+	padding: 100px 0;
+	background-color: var(--binance-dark);
+}
+
+.stats-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 30px;
+	margin-top: 50px;
+}
+
+.stat-card {
+	background-color: var(--binance-black);
+	border-radius: 8px;
+	padding: 30px;
+	text-align: center;
+	border: 1px solid #2c2f36;
+}
+
+.stat-value {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-bottom: 10px;
+	color: var(--binance-yellow);
+}
+
+.stat-label {
+	color: var(--binance-light-gray);
+	font-size: 1.1rem;
+}
+
+/* CTA Section */
+.cta {
+	padding: 100px 0;
+	background: linear-gradient(to right, var(--binance-dark),
+		var(--binance-black));
+	text-align: center;
+	position: relative;
+	overflow: hidden;
+}
+
+.cta::before {
+	content: '';
+	position: absolute;
+	top: -100px;
+	right: -100px;
+	width: 300px;
+	height: 300px;
+	background: var(--binance-yellow);
+	border-radius: 50%;
+	opacity: 0.05;
+}
+
+.cta h2 {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-bottom: 20px;
+}
+
+.cta h2 span {
+	color: var(--binance-yellow);
+}
+
+.cta p {
+	font-size: 1.2rem;
+	margin-bottom: 30px;
+	max-width: 700px;
+	margin-left: auto;
+	margin-right: auto;
+	color: var(--binance-light-gray);
+}
+
+/* Footer */
+footer {
+	padding: 80px 0 30px;
+	background-color: var(--binance-dark);
+}
+
+.footer-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 40px;
+	margin-bottom: 60px;
+}
+
+.footer-col h3 {
+	font-size: 1.2rem;
+	margin-bottom: 20px;
+	font-weight: 600;
+	position: relative;
+	padding-bottom: 10px;
+}
+
+.footer-col h3::after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 40px;
+	height: 3px;
+	background: var(--binance-yellow);
+}
+
+.footer-links {
+	list-style: none;
+}
+
+.footer-links li {
+	margin-bottom: 10px;
+}
+
+.footer-links a {
+	text-decoration: none;
+	color: var(--binance-light-gray);
+	transition: color 0.3s;
+}
+
+.footer-links a:hover {
+	color: var(--binance-yellow);
+}
+
+.social-links {
+	display: flex;
+	gap: 15px;
+	margin-top: 20px;
+}
+
+.social-link {
+	width: 40px;
+	height: 40px;
+	background-color: rgba(255, 255, 255, 0.1);
+	border-radius: 4px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: background-color 0.3s;
+	color: var(--binance-light-gray);
+	text-decoration: none;
+}
+
+.social-link:hover {
+	background-color: var(--binance-yellow);
+	color: var(--binance-black);
+}
+
+.copyright {
+	text-align: center;
+	padding-top: 30px;
+	border-top: 1px solid #2c2f36;
+	color: var(--binance-light-gray);
+	font-size: 0.9rem;
+}
+
+/* Animations */
+@keyframes fadeInUp {from { opacity:0;
+	transform: translateY(20px);
+}
+
+to {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+}
+.animate {
+	animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.delay-1 {
+	animation-delay: 0.2s;
+}
+
+.delay-2 {
+	animation-delay: 0.4s;
+}
+
+.delay-3 {
+	animation-delay: 0.6s;
+}
+
+/* Responsive */
+@media ( max-width : 768px) {
+	.hero h1 {
+		font-size: 2.5rem;
+	}
+	.nav-links {
+		display: none;
+	}
+	.hero-btns {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	.steps::before {
+		display: none;
+	}
+	.step {
+		margin-bottom: 40px;
+	}
+	.trading-actions {
+		flex-direction: column;
+	}
+}
+
+/* Binance-style candlestick chart */
+.candlestick-chart {
+	height: 400px;
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+}
+
+.chart-grid {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: grid;
+	grid-template-rows: repeat(10, 1fr);
+	grid-template-columns: repeat(20, 1fr);
+}
+
+.grid-line-horizontal {
+	border-bottom: 1px solid rgba(44, 47, 54, 0.5);
+	grid-column: 1/-1;
+}
+
+.grid-line-vertical {
+	border-right: 1px solid rgba(44, 47, 54, 0.5);
+	grid-row: 1/-1;
+}
+
+.candle {
+	position: absolute;
+	width: 8px;
+	background-color: var(--binance-green);
+	bottom: 0;
+	transform: translateX(-50%);
+}
+
+.candle.down {
+	background-color: var(--binance-red);
+}
+
+.candle-wick {
+	position: absolute;
+	width: 2px;
+	background-color: #fff;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+/* Mobile menu */
+.mobile-menu-btn {
+	display: none;
+	background: none;
+	border: none;
+	color: white;
+	font-size: 24px;
+	cursor: pointer;
+}
+
+@media ( max-width : 768px) {
+	.mobile-menu-btn {
+		display: block;
+	}
+}
     </style>
 </head>
 <body>
