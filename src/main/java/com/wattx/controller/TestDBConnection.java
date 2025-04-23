@@ -3,12 +3,14 @@ package com.wattx.controller;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+
+import com.wattx.config.DBConnecttion;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import com.wattx.util.DBConnecttion;
 
 @WebServlet("/test-db")
 public class TestDBConnection extends HttpServlet {

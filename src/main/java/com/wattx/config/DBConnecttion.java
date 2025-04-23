@@ -1,4 +1,4 @@
-package com.wattx.util;
+package com.wattx.config;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

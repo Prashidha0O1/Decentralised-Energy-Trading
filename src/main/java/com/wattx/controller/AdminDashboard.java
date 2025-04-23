@@ -1,14 +1,16 @@
 package com.wattx.controller;
 
 import jakarta.servlet.ServletException;
+
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
+import com.wattx.config.DBConnecttion;
 import com.wattx.model.EnergyListing;
 import com.wattx.model.User;
-import com.wattx.util.DBConnecttion;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -70,7 +72,7 @@ public class AdminDashboard extends HttpServlet {
 
         if (user == null || !"admin".equals(user.getRole())) {
             request.setAttribute("error", "Please log in as an admin to access the dashboard.");
-            request.getRequestDispatcher("WEB-INF/pages/LOGIN.jsp").forward(request, response);
+            request.getRequestDispatcher("WEB-INF/pages/Login.jsp").forward(request, response);
             return;
         }
 

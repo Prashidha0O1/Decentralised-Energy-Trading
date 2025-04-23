@@ -6,7 +6,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import com.wattx.util.DBConnecttion;
+
+import com.wattx.config.DBConnecttion;
 import com.wattx.util.PasswordUtil;
 
 import java.io.IOException;

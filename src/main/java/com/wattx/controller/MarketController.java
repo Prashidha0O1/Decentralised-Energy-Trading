@@ -1,7 +1,8 @@
 package com.wattx.controller;
 
+import com.wattx.config.DBConnecttion;
 import com.wattx.model.EnergyListing;
-import com.wattx.util.DBConnecttion;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
