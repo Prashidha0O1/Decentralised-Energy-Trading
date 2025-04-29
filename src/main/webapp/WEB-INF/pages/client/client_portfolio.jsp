@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -175,16 +173,15 @@
             WattX
         </a>
         <div class="nav-links">
-            <a href="<%= contextPath %>/market" class="${param.action == null ? 'active' : ''}">Dashboard</a>
-            <a href="<%= contextPath %>/market?action=portfolio" class="${param.action == 'portfolio' ? 'active' : ''}">Portfolio</a>
+            <a href="<%= contextPath %>/market" class="${param.action == null ? 'active' : ''}">Market</a>
+            <a href="<%= contextPath %>/market?action=profile" class="${param.action == 'portfolio' ? 'active' : ''}">Portfolio</a>
             <a href="<%= contextPath %>/logout">Logout</a>
         </div>
     </div>
     <div class="content">
-        <div class="welcome-message">Welcome, ${user.name}!</div>
+        <div class="welcome-message">Welcome, ${user.username}!</div>
         <div class="portfolio-details">
             <h2>Your Profile</h2>
-            <p>Name: ${user.name}</p>
             <p>Username: ${user.username}</p>
             <p>Email: ${user.email}</p>
         </div>

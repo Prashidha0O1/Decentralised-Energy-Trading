@@ -1,5 +1,6 @@
 package com.wattx.controller.filter;
 
+import com.wattx.util.SessionUtil;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.FilterConfig;
@@ -10,6 +11,7 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -19,79 +21,57 @@ import java.util.List;
  */
 @WebFilter(urlPatterns = { "/*" })
 public class AuthFilter implements Filter {
-    // List of paths that don't require authentication
+
     private static final List<String> PUBLIC_PATHS = Arrays.asList(
-        "/",             // Added root path
-        "/index.jsp",    // Added in case you have an index.jsp
-        "/market",
+        "/energy-market",
         "/login",
         "/signup",
-        "/register",     // Added register path
-        "/logout"        // Add any other public paths as needed
+        "/logout",
+        "/public"
     );
 
-    /**
-     * @see Filter#init(FilterConfig)
-     */
     @Override
     public void init(FilterConfig fConfig) throws ServletException {
         // Initialization code if needed
     }
 
-    /**
-     * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
-     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-        
-        // Get the request URI and context path
+
         String requestURI = httpRequest.getRequestURI();
         String contextPath = httpRequest.getContextPath();
         String path = requestURI.substring(contextPath.length());
-        
-        // Handle empty path (converts "" to "/")
-        if (path.isEmpty()) {
-            path = "/";
-        }
-        
-        // Check for static resources that should be accessible without authentication
-        if (path.startsWith("/css/") || path.startsWith("/js/") || path.startsWith("/images/") || 
-            path.startsWith("/public/") || path.endsWith(".ico")) {
-            chain.doFilter(request, response);
-            return;
-        }
-        
+
         // Allow public paths to bypass authentication
-        if (PUBLIC_PATHS.contains(path)) {
+        if (PUBLIC_PATHS.contains(path) || path.startsWith("/public/")) {
             chain.doFilter(request, response);
             return;
         }
-        
-        // Check if the user is logged in
+
+        // Debug session state
         HttpSession session = httpRequest.getSession(false);
-        boolean isLoggedIn = (session != null && session.getAttribute("user") != null);
-        
-        if (!isLoggedIn) {
-            // Store the intended destination so the login page can redirect back after successful login
+        System.out.println("AuthFilter: Path = " + path);
+        System.out.println("AuthFilter: Session exists = " + (session != null));
+        if (session != null) {
+            System.out.println("AuthFilter: User in session = " + (session.getAttribute("user") != null));
+        }
+
+        // Check if the user is logged in
+        if (!SessionUtil.isLoggedIn(httpRequest)) {
             String queryString = httpRequest.getQueryString();
             String redirectURL = path + (queryString != null ? "?" + queryString : "");
-            httpRequest.getSession().setAttribute("redirectURL", redirectURL);
-            
-            // Redirect to login page
+            SessionUtil.setAttribute(httpRequest, "redirectURL", redirectURL);
+            System.out.println("AuthFilter: Redirecting to login, redirectURL = " + redirectURL);
             httpResponse.sendRedirect(contextPath + "/login");
             return;
         }
-        
-        // User is authenticated, proceed with the request
+
         chain.doFilter(request, response);
     }
 
-    /**
-     * @see Filter#destroy()
-     */
     @Override
     public void destroy() {
         // Cleanup code if needed

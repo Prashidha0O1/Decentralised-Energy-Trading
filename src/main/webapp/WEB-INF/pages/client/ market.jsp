@@ -347,7 +347,7 @@
                 <div class="menu-section">
                     <div class="menu-section-title">Settings</div>
                     <div class="menu-items">
-                        <a href="#"><i class="fas fa-user"></i> Profile</a>
+                        <a href="<%= contextPath %>/profile"><i class="fas fa-user"></i> Profile</a>
                         <a href="<%= contextPath %>/"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </div>
                 </div>
