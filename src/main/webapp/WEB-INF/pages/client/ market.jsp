@@ -22,24 +22,20 @@
             --danger: #F6465D;
             --border: #2E333A;
         }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         }
-        
         body {
             background-color: var(--bg-primary);
             color: var(--text-primary);
         }
-        
         .container {
             display: flex;
             min-height: 100vh;
         }
-        
         .sidebar {
             width: 240px;
             background-color: var(--bg-secondary);
@@ -51,14 +47,12 @@
             z-index: 100;
             transition: all 0.3s;
         }
-        
         .sidebar-header {
             padding: 20px 15px;
             border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
         }
-        
         .logo {
             display: flex;
             align-items: center;
@@ -66,7 +60,6 @@
             font-weight: bold;
             font-size: 1.4rem;
         }
-        
         .logo-icon {
             width: 32px;
             height: 32px;
@@ -77,16 +70,13 @@
             justify-content: center;
             color: var(--bg-primary);
         }
-        
         .sidebar-menu {
             padding: 15px 0;
         }
-        
         .menu-section {
             padding: 0 15px;
             margin-bottom: 15px;
         }
-        
         .menu-section-title {
             font-size: 12px;
             color: var(--text-secondary);
@@ -94,7 +84,6 @@
             margin-bottom: 10px;
             padding-left: 10px;
         }
-        
         .menu-items a {
             display: flex;
             align-items: center;
@@ -106,22 +95,18 @@
             margin-bottom: 5px;
             transition: all 0.2s;
         }
-        
         .menu-items a:hover, .menu-items a.active {
             background-color: rgba(240, 185, 11, 0.1);
             color: var(--primary);
         }
-        
         .menu-items a.active {
             border-left: 3px solid var(--primary);
         }
-        
         .content {
             flex: 1;
             margin-left: 240px;
             padding: 20px;
         }
-        
         .topbar {
             display: flex;
             justify-content: space-between;
@@ -130,18 +115,15 @@
             border-bottom: 1px solid var(--border);
             margin-bottom: 20px;
         }
-        
         .topbar-title {
             font-size: 1.5rem;
             font-weight: 500;
         }
-        
         .user-menu {
             display: flex;
             align-items: center;
             gap: 20px;
         }
-        
         .notification-icon, .user-profile {
             background-color: var(--bg-secondary);
             width: 40px;
@@ -153,12 +135,10 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-        
         .notification-icon:hover, .user-profile:hover {
             background-color: var(--primary);
             color: var(--bg-primary);
         }
-        
         .listings-section {
             background-color: var(--bg-secondary);
             padding: 20px;
@@ -166,19 +146,16 @@
             border: 1px solid var(--border);
             margin-bottom: 20px;
         }
-        
         .section-title {
             font-size: 1.2rem;
             font-weight: 500;
             margin-bottom: 15px;
         }
-        
         .listings-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
         }
-        
         .listing-card {
             background-color: var(--bg-tertiary);
             padding: 15px;
@@ -189,17 +166,14 @@
             gap: 10px;
             position: relative;
         }
-        
         .listing-card h3 {
             font-size: 1.1rem;
             text-transform: capitalize;
         }
-        
         .listing-card p {
             font-size: 14px;
             color: var(--text-secondary);
         }
-        
         .btn {
             background-color: var(--primary);
             color: var(--bg-primary);
@@ -212,15 +186,12 @@
             cursor: pointer;
             text-align: center;
         }
-        
         .btn:hover {
             background-color: #d4a00a;
         }
-        
         .btn-buy {
             position: relative;
         }
-        
         .btn-buy .tooltip {
             visibility: hidden;
             background-color: var(--bg-secondary);
@@ -238,12 +209,10 @@
             opacity: 0;
             transition: opacity 0.3s;
         }
-        
         .btn-buy:hover .tooltip {
             visibility: visible;
             opacity: 1;
         }
-        
         .modal {
             display: none;
             position: fixed;
@@ -256,7 +225,6 @@
             align-items: center;
             justify-content: center;
         }
-        
         .modal-content {
             background-color: var(--bg-secondary);
             padding: 20px;
@@ -265,19 +233,16 @@
             max-width: 90%;
             border: 1px solid var(--border);
         }
-        
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
         }
-        
         .modal-title {
             font-size: 1.2rem;
             font-weight: 500;
         }
-        
         .close-btn {
             background: none;
             border: none;
@@ -285,21 +250,17 @@
             font-size: 1.5rem;
             cursor: pointer;
         }
-        
         .close-btn:hover {
             color: var(--text-primary);
         }
-        
         .form-group {
             margin-bottom: 15px;
         }
-        
         .form-group label {
             display: block;
             font-size: 14px;
             margin-bottom: 5px;
         }
-        
         .form-group input {
             width: 100%;
             padding: 10px;
@@ -309,22 +270,46 @@
             color: var(--text-primary);
             font-size: 14px;
         }
-        
         .message {
             padding: 10px;
             border-radius: 5px;
             margin-bottom: 15px;
             font-size: 14px;
         }
-        
         .message.success {
             background-color: rgba(2, 192, 118, 0.1);
             color: var(--success);
         }
-        
         .message.error {
             background-color: rgba(246, 70, 93, 0.1);
             color: var(--danger);
+        }
+        .search-bar {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .search-bar input[type="text"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid var(--border);
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            font-size: 14px;
+            width: 300px;
+        }
+        .search-bar button {
+            background-color: var(--primary);
+            color: var(--bg-primary);
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .search-bar button:hover {
+            background-color: #d4a00a;
         }
     </style>
 </head>
@@ -363,6 +348,13 @@
             </div>
             <div class="listings-section">
                 <div class="section-title">Available Energy Listings</div>
+                <div class="search-bar">
+                    <form action="<%= contextPath %>/market" method="get">
+                        <input type="hidden" name="action" value="search">
+                        <input type="text" name="name" placeholder="Search by energy type..." value="${param.name}">
+                        <button type="submit">Search</button>
+                    </form>
+                </div>
                 <c:if test="${not empty error}">
                     <div class="message error">${error}</div>
                 </c:if>
@@ -392,8 +384,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Purchase Modal -->
     <div id="purchaseModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -417,27 +407,21 @@
             </form>
         </div>
     </div>
-
     <script>
         function openModal(modalId) {
             document.getElementById(modalId).style.display = 'flex';
         }
-
         function closeModal() {
             document.querySelectorAll('.modal').forEach(modal => {
                 modal.style.display = 'none';
             });
         }
-
-        // Close modal when clicking outside
         window.addEventListener('click', function(event) {
             const purchaseModal = document.getElementById('purchaseModal');
             if (event.target === purchaseModal) {
                 closeModal();
             }
         });
-
-        // Auto-open Purchase Modal if in buy mode
         <c:if test="${not empty listing}">
             openModal('purchaseModal');
         </c:if>

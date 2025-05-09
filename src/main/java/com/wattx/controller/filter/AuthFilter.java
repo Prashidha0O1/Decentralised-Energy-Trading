@@ -23,7 +23,7 @@ import java.util.List;
 public class AuthFilter implements Filter {
 
     private static final List<String> PUBLIC_PATHS = Arrays.asList(
-        "/energy-market",
+        "/market",
         "/login",
         "/signup",
         "/logout",

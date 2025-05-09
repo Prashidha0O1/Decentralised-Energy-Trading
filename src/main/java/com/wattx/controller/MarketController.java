@@ -26,7 +26,11 @@ public class MarketController extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getParameter("action") != null ? request.getParameter("action").trim() : null;
 
-        if ("buy".equals(action)) {
+        List<EnergyListing> listings;
+        if ("search".equals(action)) {
+            String name = request.getParameter("name") != null ? request.getParameter("name").trim() : "";
+            listings = searchEnergyTradebyName(name);
+        } else if ("buy".equals(action)) {
             int listingId = request.getParameter("listingId") != null ? Integer.parseInt(request.getParameter("listingId")) : 0;
             EnergyListing listing = getListingById(listingId);
             if (listing != null && "available".equals(listing.getStatus())) {
@@ -34,10 +38,12 @@ public class MarketController extends HttpServlet {
             } else {
                 request.setAttribute("error", "Listing not available for purchase.");
             }
+            listings = getAvailableListings();
+        } else {
+            listings = getAvailableListings();
         }
 
-        List<EnergyListing> availableListings = getAvailableListings();
-        request.setAttribute("listings", availableListings);
+        request.setAttribute("listings", listings);
         request.getRequestDispatcher("WEB-INF/pages/client/ market.jsp").forward(request, response);
     }
 
@@ -52,7 +58,7 @@ public class MarketController extends HttpServlet {
 
         List<EnergyListing> availableListings = getAvailableListings();
         request.setAttribute("listings", availableListings);
-        request.getRequestDispatcher("WEB-INF/pages/energy_market.jsp").forward(request, response);
+        request.getRequestDispatcher("WEB-INF/pages/client/market.jsp").forward(request, response);
     }
 
     private List<EnergyListing> getAvailableListings() {
@@ -103,6 +109,31 @@ public class MarketController extends HttpServlet {
         return null;
     }
 
+    private List<EnergyListing> searchEnergyTradebyName(String name) {
+        List<EnergyListing> listings = new ArrayList<>();
+        try (Connection conn = DBConnecttion.getConnection()) {
+            String sql = "SELECT * FROM energy_listings WHERE status = 'available' AND LOWER(energy_type) LIKE ?";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setString(1, "%" + name.toLowerCase() + "%");
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+                    EnergyListing listing = new EnergyListing();
+                    listing.setListingId(rs.getInt("listing_id"));
+                    listing.setEnergyType(rs.getString("energy_type"));
+                    listing.setQuantity(rs.getDouble("quantity"));
+                    listing.setPricePerKwh(rs.getDouble("price_per_kwh"));
+                    listing.setStatus(rs.getString("status"));
+                    listing.setCreatedAt(rs.getTimestamp("created_at"));
+                    listing.setCreatedBy(rs.getInt("created_by"));
+                    listings.add(listing);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listings;
+    }
+
     private void handlePurchase(HttpServletRequest request) {
         int listingId = request.getParameter("listingId") != null ? Integer.parseInt(request.getParameter("listingId")) : 0;
         String buyerEmail = request.getParameter("buyerEmail") != null ? request.getParameter("buyerEmail").trim() : null;
@@ -125,7 +156,6 @@ public class MarketController extends HttpServlet {
         try (Connection conn = DBConnecttion.getConnection()) {
             conn.setAutoCommit(false);
             try {
-                // Insert into transactions table
                 String insertSql = "INSERT INTO transactions (listing_id, buyer_email, quantity, total_price, transaction_date) VALUES (?, ?, ?, ?, NOW())";
                 try (PreparedStatement stmt = conn.prepareStatement(insertSql)) {
                     stmt.setInt(1, listingId);
@@ -135,7 +165,6 @@ public class MarketController extends HttpServlet {
                     stmt.executeUpdate();
                 }
 
-                // Update listing status to 'sold'
                 String updateSql = "UPDATE energy_listings SET status = 'sold' WHERE listing_id = ? AND status = 'available'";
                 try (PreparedStatement stmt = conn.prepareStatement(updateSql)) {
                     stmt.setInt(1, listingId);

@@ -26,22 +26,27 @@ public class PortfolioController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Debug session state
         HttpSession session = request.getSession(false);
         System.out.println("PortfolioController: Session exists = " + (session != null));
-        User user = null;
 
+        User user = null;
         if (session != null) {
             System.out.println("PortfolioController: User in session = " + (session.getAttribute("user") != null));
             user = SessionUtil.getLoggedInUser(request);
             if (user != null) {
                 System.out.println("✅ User authenticated via session: " + user.getUsername());
+            } else {
+                System.out.println("⚠️ No user found in session.");
             }
+        } else {
+            System.out.println("⚠️ No session found.");
         }
 
+        // If user is not authenticated, redirect to login
         if (user == null) {
-            System.out.println("⛔ Unauthorized access to /portfolio. Redirecting to login.");
-            String redirectURL = "/portfolio";
+            System.out.println("⛔ Unauthorized access to /profile. Redirecting to login.");
+            String redirectURL = request.getContextPath() + "/profile";
+            session = request.getSession(true); // Create a new session if it doesn't exist
             SessionUtil.setAttribute(request, "redirectURL", redirectURL);
             response.sendRedirect(request.getContextPath() + "/login");
             return;
@@ -60,10 +65,12 @@ public class PortfolioController extends HttpServlet {
             user = getUserByUsername(user.getUsername());
             if (user != null) {
                 System.out.println("✅ Fetched user details for: " + user.getUsername());
+                session.setAttribute("user", user); // Update session with fresh user data
                 request.setAttribute("user", user);
             } else {
                 System.out.println("⚠️ No user found with username: " + user.getUsername());
                 request.setAttribute("error", "User not found.");
+                session.invalidate(); // Invalidate session if user not found
                 response.sendRedirect(request.getContextPath() + "/login");
                 return;
             }
@@ -75,6 +82,12 @@ public class PortfolioController extends HttpServlet {
             e.printStackTrace();
             System.out.println("❌ Error retrieving user details or transactions: " + e.getMessage());
             request.setAttribute("error", "Error retrieving portfolio data: " + e.getMessage());
+        }
+
+        // Clear redirectURL if present to prevent loops
+        if (session.getAttribute("redirectURL") != null) {
+            System.out.println("PortfolioController: Clearing redirectURL from session.");
+            session.removeAttribute("redirectURL");
         }
 
         request.getRequestDispatcher("WEB-INF/pages/client/client_portfolio.jsp").forward(request, response);

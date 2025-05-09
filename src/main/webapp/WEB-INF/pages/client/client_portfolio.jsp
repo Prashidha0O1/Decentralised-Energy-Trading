@@ -104,6 +104,7 @@
             border-radius: 8px;
             border: 1px solid var(--border);
             margin-bottom: 20px;
+            position: relative;
         }
 
         .portfolio-details h2 {
@@ -115,6 +116,97 @@
             font-size: 14px;
             color: var(--text-secondary);
             margin-bottom: 5px;
+        }
+
+        .update-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--primary);
+            color: var(--bg-primary);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .update-button:hover {
+            background-color: #d4a009;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            border: 1px solid var(--border);
+        }
+
+        .modal-content h2 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            font-size: 14px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .form-actions button {
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .save-button {
+            background-color: var(--success);
+            color: var(--text-primary);
+            border: none;
+        }
+
+        .cancel-button {
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
         }
 
         .section-title {
@@ -184,6 +276,7 @@
             <h2>Your Profile</h2>
             <p>Username: ${user.username}</p>
             <p>Email: ${user.email}</p>
+            <button class="update-button" onclick="openUpdateForm()">Update Profile</button>
         </div>
         <div class="section-title">Transaction History</div>
         <c:if test="${not empty error}">
@@ -220,5 +313,42 @@
             </tbody>
         </table>
     </div>
+
+    <div class="modal" id="updateProfileModal">
+        <div class="modal-content">
+            <h2>Update Profile</h2>
+            <form id="updateProfileForm" action="<%= contextPath %>/updateProfile" method="POST">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" value="${user.username}" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" value="${user.email}" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="save-button">Save Changes</button>
+                    <button type="button" class="cancel-button" onclick="closeUpdateForm()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openUpdateForm() {
+            document.getElementById('updateProfileModal').style.display = 'flex';
+        }
+
+        function closeUpdateForm() {
+            document.getElementById('updateProfileModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('updateProfileModal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                closeUpdateForm();
+            }
+        });
+    </script>
 </body>
 </html>

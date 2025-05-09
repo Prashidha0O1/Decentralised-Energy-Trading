@@ -81,7 +81,7 @@ public class LoginController extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
 
-            // Add cookie for "remember me" functionality (if requested)
+            // Add cookie for "remember me" functionality 
             String rememberMe = request.getParameter("rememberMe");
             if ("on".equals(rememberMe)) {
                 CookieUtil.addCookie(response, "userEmail", user.getEmail(), 30 * 24 * 60 * 60); // 30 days
