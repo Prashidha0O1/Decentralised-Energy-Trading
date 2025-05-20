@@ -195,6 +195,13 @@
             WattX
         </a>
 
+        <!-- Display server-side error message if present -->
+        <% if (request.getAttribute("error") != null) { %>
+            <div class="server-error">
+                <%= request.getAttribute("error") %>
+            </div>
+        <% } %>
+
         <form id="loginForm" action="<%= contextPath %>/login" method="POST">
             <div class="form-group">
                 <i class="fas fa-envelope"></i>
